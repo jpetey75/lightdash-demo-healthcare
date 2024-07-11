@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: medicare
+    description: This source is pulling public Medicare data directly from BigQuery public datasets
+    project: bigquery-public-data
+    dataset: cms_medicare
+    tables:
+      - name: outpatient_charges_2015

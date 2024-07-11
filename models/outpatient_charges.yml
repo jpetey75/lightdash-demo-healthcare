@@ -1,0 +1,178 @@
+version: 2
+models:
+  - name: outpatient_charges
+    meta:
+      group_details:
+        location:
+          label: Location
+          description: >-
+            These fields contain location data for each provider, like City and
+            State.
+        raw_numbers:
+          label: Raw Numbers
+          description: >-
+            These fields are the raw numbers used to calculate metrics. Most of
+            the time you should use the Metric version of these numbers, unless
+            you need to create a custom metric using these raw fields or create
+            a full data export of this table.
+      metrics:
+        diff_avg_estimate_vs_avg_payment:
+          type: number
+          label: AVG Estimate vs AVG Payment
+          format: usd
+          round: 0
+          sql: ${sum_average_estimated_submitted_charges} - ${sum_average_total_payments}
+        diff_estimate_vs_payment:
+          type: number
+          format: usd
+          round: 0
+          label: Total Estimate vs Total Payment
+          sql: ${sum_total_estimated_charges} - ${sum_total_payment_amount}
+        sum_total_estimated_charges:
+          type: sum
+          sql: ${total_estimated_charges}
+          label: Total Estimated Charges
+          format: usd
+          round: 0
+          description: The sum of the total estimated charges for the provider(s) selected in your query.
+    columns:
+      - name: provider_id
+        description: The distinct ID for each provider from the Medicare database.
+        meta:
+          dimension:
+            type: string
+            label: Provider ID
+          metrics:
+            count_distinct_outpatient_charges:
+              type: count_distinct
+              label: Unique Providers
+              description: >-
+                Unique number of providers in your query, grouped by the
+                dimensions you have chosen
+      - name: provider_name
+        description: >-
+          The name of this provider based on the value recorded in the Medicare
+          database. There are sometimes multiple providers with the same name, so we hide this field in favor of provider_name_and_id.  
+        meta:
+          dimension:
+            hidden: true
+            type: string
+      - name: provider_name_and_id
+        description: "A combination of the Provider Name and ID fields to ensure queries that require showing Provider Name are not accidentally duplicating providers with the same name."
+        meta:
+          dimension:
+            label: Provider Name
+            type: string
+      - name: provider_city
+        description: >-
+          The City where this provider is located based on the value recorded in
+          the Medicare database.
+        meta:
+          dimension:
+            type: string
+            groups:
+              - location
+      - name: provider_state
+        description: >-
+          The State where this provider is located based on the value recorded
+          in the Medicare database.
+        meta:
+          dimension:
+            type: string
+            groups:
+              - location
+      - name: hospital_referral_region
+        description: >-
+          The Hospitcal referral region where this provider is located based on
+          the value recorded in the Medicare database. This will be the
+          combination of State - City (e.g. AK - Anchorage).
+        meta:
+          dimension:
+            type: string
+            groups:
+              - location
+      - name: ambulatory_payment_classification
+        description: >-
+          Ambulatory payment classifications (APCs) are the method by which the
+          government pays facilities for outpatient services through the
+          Medicare program. Each APC contains services similar in resource
+          utilization, clinical intensity, and cost.
+        meta:
+          dimension:
+            label: APC
+            type: string
+      - name: outpatient_services
+        description: The number of outpatient services completed by this provider in 2015.
+        meta:
+          dimension:
+            type: number
+            label: Number of Outpatient Services
+            groups:
+              - raw_numbers
+          metrics:
+            sum_outpatient_services:
+              type: sum
+              label: Number of Outpatient Services
+              description: >-
+                The sum of outpatient services completed in 2015 by the
+                providers in your query.
+      - name: average_total_payments
+        description: The average payment per patient by Medicare to this provider in 2015.
+        meta:
+          dimension:
+            type: number
+            label: Average Amount Paid by Medicare
+            hidden: true
+            groups:
+              - raw_numbers
+          additional_dimensions:
+                  total_payment_amount:
+                    type: number
+                    label: Total Paid by Medicare
+                    groups:
+                      - raw_numbers
+                    description: 'Total of payments received by this provider from Medicare in 2015.'
+                    sql: ${average_total_payments} * ${outpatient_services}
+          metrics:
+            sum_average_total_payments:
+              type: sum
+              format: usd
+              round: 0
+              label: Average Amount Paid by Medicare
+              description: >-
+                The sum of the average payment per patient across all providers
+                in your query.
+            sum_total_payment_amount:
+              type: sum
+              format: usd
+              label: Total Amount Paid by Medicare
+              round: 0
+              description: The sum of the total payments for the provider(s) selected in your query.
+              sql: ${total_payment_amount}
+
+      - name: average_estimated_submitted_charges
+        hidden: true
+        description: >-
+          The average charges submitted per patient to Medicare by this provider
+          in 2015.
+        meta:
+          dimension:
+            type: number
+            groups:
+              - raw_numbers
+          additional_dimensions:
+            total_estimated_charges:
+              type: number
+              groups:
+                - raw_numbers
+              description: 'Total of payments received by this provider from Medicare in 2015.'
+              sql: ${average_estimated_submitted_charges} * ${outpatient_services}
+          metrics:
+            sum_average_estimated_submitted_charges:
+              type: sum
+              label: Average Estimated Charges
+              format: usd
+              round: 0
+              description: >-
+                The sum of the average estimated submitted charges per patient
+                across all providers in your query.
