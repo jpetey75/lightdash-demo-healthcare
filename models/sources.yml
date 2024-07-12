@@ -6,4 +6,8 @@ sources:
     project: bigquery-public-data
     dataset: cms_medicare
     tables:
+      - name: outpatient_charges_2011
+      - name: outpatient_charges_2012
+      - name: outpatient_charges_2013
+      - name: outpatient_charges_2014
       - name: outpatient_charges_2015
