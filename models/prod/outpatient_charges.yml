@@ -11,7 +11,9 @@ models:
         estimates:
           label: Estimate Metrics
           description: >-
-            These metrics are related to estimated charges. Most reports use Total Paid to show actual payments unless you are specifically analyzing estimates. 
+            These metrics are related to estimated charges. Most reports use
+            Total Paid to show actual payments unless you are specifically
+            analyzing estimates. 
       metrics:
         diff_estimate_vs_payment:
           type: number
@@ -104,10 +106,11 @@ models:
               - location
       - name: provider_division
         description: >-
-          The US Division where this provider is located based on the State recorded
-          in the Medicare database. There are 9 divisions in the US: 
+          The US Division where this provider is located based on the State
+          recorded in the Medicare database. There are 9 divisions in the US: 
           New England, Middle Atlantic, East North Central, West North Central, 
-          South Atlantic, East South Central, West South Central, Mountain, and Pacific
+          South Atlantic, East South Central, West South Central, Mountain, and
+          Pacific
         meta:
           dimension:
             type: string
@@ -115,8 +118,8 @@ models:
               - location
       - name: provider_region
         description: >-
-          The US Region where this provider is located based on the State recorded
-          in the Medicare database. There are four regions in the US:
+          The US Region where this provider is located based on the State
+          recorded in the Medicare database. There are four regions in the US:
           Northest, Midwest, South, and West.
         meta:
           dimension:
@@ -138,7 +141,8 @@ models:
         meta:
           dimension:
             type: date
-            time_intervals: ['YEAR']
+            time_intervals:
+              - YEAR
       - name: apc
         description: >-
           Ambulatory payment classifications (APCs) are the method by which the
@@ -147,7 +151,7 @@ models:
           utilization, clinical intensity, and cost.
         meta:
           dimension:
-            label: "APC"
+            label: APC
             type: string
       - name: number_services
         description: >-
@@ -203,7 +207,8 @@ models:
               round: 0
               description: >-
                 The sum of the total amount paid by Medicare for the combination
-                of fields you have selected in your query, compacted to millions.          
+                of fields you have selected in your query, compacted to
+                millions.          
             sum_total_paid_bn:
               type: sum
               label: Total Paid (Billions)
@@ -212,7 +217,8 @@ models:
               round: 0
               description: >-
                 The sum of the total amount paid by Medicare for the combination
-                of fields you have selected in your query, compacted to billions.          
+                of fields you have selected in your query, compacted to
+                billions.          
       - name: total_estimated
         description: >-
           Total estimated submitted charges (outpatient_services multiplied by
@@ -257,3 +263,9 @@ models:
                 The sum of the total estimated submitted charges by providers to
                 Medicare for the combination of fields you have selected in your
                 query, compacted to billions.
+      - name: parsed_apc_level
+        description: "Level of the APC pulled out from the APC label"
+        meta:
+          dimension:
+            type: string
+            label: Parsed APC level
