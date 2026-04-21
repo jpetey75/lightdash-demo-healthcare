@@ -1,0 +1,40 @@
+contentType: chart
+version: 1
+name: "Average Medicare Payment by Region"
+slug: avg-medicare-payment-by-region
+spaceSlug: hospital-management
+tableName: inpatient_charges
+metricQuery:
+  exploreName: inpatient_charges
+  dimensions:
+    - inpatient_charges_provider_region
+  metrics:
+    - inpatient_charges_avg_average_medicare_payments
+  tableCalculations: []
+  filters: {}
+  sorts:
+    - fieldId: inpatient_charges_avg_average_medicare_payments
+      descending: true
+  limit: 500
+chartConfig:
+  type: cartesian
+  config:
+    layout:
+      xField: inpatient_charges_provider_region
+      yField:
+        - inpatient_charges_avg_average_medicare_payments
+    eChartsConfig:
+      series:
+        - type: bar
+          encode:
+            xRef:
+              field: inpatient_charges_provider_region
+            yRef:
+              field: inpatient_charges_avg_average_medicare_payments
+          label:
+            show: true
+            position: "top"
+      xAxis:
+        - name: "Region"
+      yAxis:
+        - name: "Avg Medicare Payment"

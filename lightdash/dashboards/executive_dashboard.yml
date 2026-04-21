@@ -1,0 +1,147 @@
+contentType: dashboard
+version: 1
+tabs: []
+name: "Executive Management Dashboard"
+slug: executive-management-dashboard
+spaceSlug: hospital-management
+tiles:
+  - type: saved_chart
+    properties:
+      chartSlug: total-paid-outpatient
+      title: "Total Paid (Outpatient)"
+      chartName: "Total Paid (Outpatient)"
+    x: 0
+    y: 0
+    h: 4
+    w: 4
+  - type: saved_chart
+    properties:
+      chartSlug: total-discharges-inpatient
+      title: "Total Discharges (Inpatient)"
+      chartName: "Total Discharges (Inpatient)"
+    x: 4
+    y: 0
+    h: 4
+    w: 4
+  - type: saved_chart
+    properties:
+      chartSlug: avg-hospital-rating
+      title: "Avg Hospital Rating"
+      chartName: "Avg Hospital Rating"
+    x: 8
+    y: 0
+    h: 4
+    w: 4
+  - type: saved_chart
+    properties:
+      chartSlug: total-services-outpatient
+      title: "Total Services (Outpatient)"
+      chartName: "Total Services (Outpatient)"
+    x: 12
+    y: 0
+    h: 4
+    w: 4
+  - type: saved_chart
+    properties:
+      chartSlug: unique-providers
+      title: "Unique Providers"
+      chartName: "Unique Providers"
+    x: 16
+    y: 0
+    h: 4
+    w: 4
+  - type: saved_chart
+    properties:
+      chartSlug: hospital-rating-distribution
+      title: "Hospital Rating Distribution"
+      chartName: "Hospital Rating Distribution"
+    x: 20
+    y: 0
+    h: 4
+    w: 4
+  - type: saved_chart
+    properties:
+      chartSlug: total-paid-trend-yearly
+      title: "Yearly Total Paid Trend"
+      chartName: "Total Paid Trend (Yearly)"
+    x: 0
+    y: 4
+    h: 8
+    w: 12
+  - type: saved_chart
+    properties:
+      chartSlug: total-paid-by-region
+      title: "Total Paid by Region"
+      chartName: "Total Paid by Region"
+    x: 12
+    y: 4
+    h: 8
+    w: 12
+  - type: saved_chart
+    properties:
+      chartSlug: hospital-rating-by-ownership
+      title: "Hospital Rating by Ownership"
+      chartName: "Hospital Rating by Ownership"
+    x: 0
+    y: 12
+    h: 8
+    w: 12
+  - type: saved_chart
+    properties:
+      chartSlug: top-10-apcs-by-total-paid
+      title: "Top 10 APCs by Total Paid"
+      chartName: "Top 10 APCs by Total Paid"
+    x: 12
+    y: 12
+    h: 8
+    w: 12
+  - type: saved_chart
+    properties:
+      chartSlug: total-discharges-by-region
+      title: "Total Discharges by Region"
+      chartName: "Total Discharges by Region"
+    x: 0
+    y: 20
+    h: 8
+    w: 12
+  - type: saved_chart
+    properties:
+      chartSlug: hospital-type-distribution
+      title: "Hospital Type Distribution"
+      chartName: "Hospital Type Distribution"
+    x: 12
+    y: 20
+    h: 8
+    w: 12
+  - type: saved_chart
+    properties:
+      chartSlug: outpatient-services-trend
+      title: "Outpatient Services Trend"
+      chartName: "Outpatient Services Trend"
+    x: 0
+    y: 28
+    h: 8
+    w: 12
+  - type: saved_chart
+    properties:
+      chartSlug: avg-medicare-payment-by-region
+      title: "Avg Medicare Payment by Region"
+      chartName: "Avg Medicare Payment by Region"
+    x: 12
+    y: 28
+    h: 8
+    w: 12
+filters:
+  dimensions:
+    - target:
+        fieldId: outpatient_charges_service_year_year
+        tableName: outpatient_charges
+      label: "Service Year"
+      operator: "equals"
+      values: []
+    - target:
+        fieldId: hospitals_provider_state
+        tableName: hospitals
+      label: "Provider State"
+      operator: "equals"
+      values: []

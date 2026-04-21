@@ -1,0 +1,39 @@
+contentType: chart
+version: 1
+name: "Total Paid Trend (Yearly)"
+slug: total-paid-trend-yearly
+spaceSlug: hospital-management
+tableName: outpatient_charges
+metricQuery:
+  exploreName: outpatient_charges
+  dimensions:
+    - outpatient_charges_service_year_year
+  metrics:
+    - outpatient_charges_sum_total_paid_mm
+  tableCalculations: []
+  filters: {}
+  sorts:
+    - fieldId: outpatient_charges_service_year_year
+      descending: false
+  limit: 500
+chartConfig:
+  type: cartesian
+  config:
+    layout:
+      xField: outpatient_charges_service_year_year
+      yField:
+        - outpatient_charges_sum_total_paid_mm
+    eChartsConfig:
+      series:
+        - type: line
+          encode:
+            xRef:
+              field: outpatient_charges_service_year_year
+            yRef:
+              field: outpatient_charges_sum_total_paid_mm
+          smooth: true
+          areaStyle: {}
+      xAxis:
+        - name: "Year"
+      yAxis:
+        - name: "Total Paid (Millions)"

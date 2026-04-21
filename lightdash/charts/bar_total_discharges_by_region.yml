@@ -1,0 +1,40 @@
+contentType: chart
+version: 1
+name: "Total Discharges by Region"
+slug: total-discharges-by-region
+spaceSlug: hospital-management
+tableName: inpatient_charges
+metricQuery:
+  exploreName: inpatient_charges
+  dimensions:
+    - inpatient_charges_provider_region
+  metrics:
+    - inpatient_charges_sum_total_discharges
+  tableCalculations: []
+  filters: {}
+  sorts:
+    - fieldId: inpatient_charges_sum_total_discharges
+      descending: true
+  limit: 500
+chartConfig:
+  type: cartesian
+  config:
+    layout:
+      xField: inpatient_charges_provider_region
+      yField:
+        - inpatient_charges_sum_total_discharges
+    eChartsConfig:
+      series:
+        - type: bar
+          encode:
+            xRef:
+              field: inpatient_charges_provider_region
+            yRef:
+              field: inpatient_charges_sum_total_discharges
+          label:
+            show: true
+            position: "top"
+      xAxis:
+        - name: "Region"
+      yAxis:
+        - name: "Total Discharges"

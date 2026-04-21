@@ -1,0 +1,20 @@
+contentType: chart
+version: 1
+name: "Avg Hospital Rating"
+slug: avg-hospital-rating
+spaceSlug: hospital-management
+tableName: hospitals
+metricQuery:
+  exploreName: hospitals
+  metrics:
+    - hospitals_avg_hospital_overall_rating
+  dimensions: []
+  tableCalculations: []
+  filters: {}
+  sorts: []
+  limit: 500
+chartConfig:
+  type: big_number
+  config:
+    label: "Overall Patient Rating (1-5)"
+    showUnit: false

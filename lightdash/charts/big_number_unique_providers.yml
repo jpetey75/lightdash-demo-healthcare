@@ -1,0 +1,20 @@
+contentType: chart
+version: 1
+name: "Unique Providers"
+slug: unique-providers
+spaceSlug: hospital-management
+tableName: outpatient_charges
+metricQuery:
+  exploreName: outpatient_charges
+  metrics:
+    - outpatient_charges_count_distinct_provider_id
+  dimensions: []
+  tableCalculations: []
+  filters: {}
+  sorts: []
+  limit: 500
+chartConfig:
+  type: big_number
+  config:
+    label: "Hospitals"
+    showUnit: false

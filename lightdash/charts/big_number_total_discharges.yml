@@ -1,0 +1,20 @@
+contentType: chart
+version: 1
+name: "Total Discharges (Inpatient)"
+slug: total-discharges-inpatient
+spaceSlug: hospital-management
+tableName: inpatient_charges
+metricQuery:
+  exploreName: inpatient_charges
+  metrics:
+    - inpatient_charges_sum_total_discharges
+  dimensions: []
+  tableCalculations: []
+  filters: {}
+  sorts: []
+  limit: 500
+chartConfig:
+  type: big_number
+  config:
+    label: "Total Discharges"
+    showUnit: false

@@ -1,0 +1,40 @@
+contentType: chart
+version: 1
+name: "Total Paid by Region"
+slug: total-paid-by-region
+spaceSlug: hospital-management
+tableName: outpatient_charges
+metricQuery:
+  exploreName: outpatient_charges
+  dimensions:
+    - outpatient_charges_provider_region
+  metrics:
+    - outpatient_charges_sum_total_paid_mm
+  tableCalculations: []
+  filters: {}
+  sorts:
+    - fieldId: outpatient_charges_sum_total_paid_mm
+      descending: true
+  limit: 500
+chartConfig:
+  type: cartesian
+  config:
+    layout:
+      xField: outpatient_charges_provider_region
+      yField:
+        - outpatient_charges_sum_total_paid_mm
+    eChartsConfig:
+      series:
+        - type: bar
+          encode:
+            xRef:
+              field: outpatient_charges_provider_region
+            yRef:
+              field: outpatient_charges_sum_total_paid_mm
+          label:
+            show: true
+            position: "top"
+      xAxis:
+        - name: "Region"
+      yAxis:
+        - name: "Total Paid (Millions)"

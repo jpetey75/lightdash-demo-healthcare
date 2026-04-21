@@ -1,0 +1,42 @@
+contentType: chart
+version: 1
+name: "Top 10 APCs by Total Paid"
+slug: top-10-apcs-by-total-paid
+spaceSlug: hospital-management
+tableName: outpatient_charges
+metricQuery:
+  exploreName: outpatient_charges
+  dimensions:
+    - outpatient_charges_apc
+  metrics:
+    - outpatient_charges_sum_total_paid_mm
+  tableCalculations: []
+  filters: {}
+  sorts:
+    - fieldId: outpatient_charges_sum_total_paid_mm
+      descending: true
+  limit: 10
+chartConfig:
+  type: cartesian
+  config:
+    layout:
+      xField: outpatient_charges_apc
+      yField:
+        - outpatient_charges_sum_total_paid_mm
+    eChartsConfig:
+      series:
+        - type: bar
+          encode:
+            xRef:
+              field: outpatient_charges_apc
+            yRef:
+              field: outpatient_charges_sum_total_paid_mm
+          label:
+            show: true
+            position: "right"
+      xAxis:
+        - name: "Total Paid (Millions)"
+      yAxis:
+        - name: "APC"
+      grid:
+        left: "30%"

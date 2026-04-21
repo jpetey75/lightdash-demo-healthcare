@@ -1,0 +1,40 @@
+contentType: chart
+version: 1
+name: "Hospital Type Distribution"
+slug: hospital-type-distribution
+spaceSlug: hospital-management
+tableName: hospitals
+metricQuery:
+  exploreName: hospitals
+  metrics:
+    - hospitals_count
+  dimensions:
+    - hospitals_hospital_type
+  tableCalculations: []
+  filters: {}
+  sorts:
+    - fieldId: hospitals_count
+      descending: true
+  limit: 500
+chartConfig:
+  type: cartesian
+  config:
+    layout:
+      xField: hospitals_hospital_type
+      yField:
+        - hospitals_count
+    eChartsConfig:
+      series:
+        - type: bar
+          encode:
+            xRef:
+              field: hospitals_hospital_type
+            yRef:
+              field: hospitals_count
+          label:
+            show: true
+            position: "top"
+      xAxis:
+        - name: "Hospital Type"
+      yAxis:
+        - name: "Count"

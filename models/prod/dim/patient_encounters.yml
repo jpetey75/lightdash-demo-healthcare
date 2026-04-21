@@ -1,0 +1,124 @@
+models:
+  - name: patient_encounters
+    description: "Dimension table for patient encounters, combining inpatient and
+      outpatient Medicare service records"
+    config:
+      tags: [ 'prod' ]
+    meta:
+      primary_key: encounter_id
+      group_details:
+        location:
+          label: Provider Location
+          description: >-
+            These fields contain location data for each provider, like City,
+            State, Division, and Region.
+        service:
+          label: Service Details
+          description: >-
+            These fields contain details about the healthcare service provided.
+        classification:
+          label: Classification
+          description: >-
+            These fields contain classification information for the encounter
+            type.
+
+      metrics:
+        total_encounters:
+          type: count
+          sql: "${TABLE}.encounter_id"
+          label: Total Encounters
+          description: >-
+            The total count of patient encounters in the dataset.
+
+    columns:
+      - name: encounter_id
+        description: "Unique surrogate key for each encounter record"
+        tests:
+          - not_null
+          - unique
+        meta:
+          dimension:
+            type: string
+            hidden: false
+      - name: provider_id
+        description: "The Provider ID; links to the hospitals dimension"
+        tests:
+          - not_null
+        meta:
+          dimension:
+            type: string
+            hidden: false
+      - name: provider_name
+        description: "Official provider name from the Medicare database"
+        meta:
+          dimension:
+            type: string
+            hidden: false
+      - name: provider_city
+        description: "City where the provider is located"
+        meta:
+          dimension:
+            type: string
+            hidden: false
+            groups:
+              - location
+      - name: provider_state
+        description: "State where the provider is located"
+        meta:
+          dimension:
+            type: string
+            hidden: false
+            groups:
+              - location
+      - name: provider_division
+        description: "US Division based on provider state (e.g., New England, Pacific,
+          etc.)"
+        meta:
+          dimension:
+            type: string
+            hidden: false
+            groups:
+              - location
+      - name: provider_region
+        description: "US Region based on provider division (Northeast, Midwest, South,
+          West)"
+        meta:
+          dimension:
+            type: string
+            hidden: false
+            groups:
+              - location
+      - name: service_description
+        description: "Description of the service provided (DRG definition for inpatient,
+          APC description for outpatient)"
+        meta:
+          dimension:
+            type: string
+            hidden: false
+            groups:
+              - service
+      - name: service_code
+        description: "Code for the service (DRG code for inpatient, APC code for
+          outpatient)"
+        meta:
+          dimension:
+            type: string
+            hidden: false
+            groups:
+              - service
+      - name: encounter_type
+        description: "Type of encounter - Inpatient or Outpatient"
+        meta:
+          dimension:
+            type: string
+            hidden: false
+            groups:
+              - classification
+      - name: service_year
+        description: "Year in which the service was provided"
+        meta:
+          dimension:
+            type: date
+            time_intervals:
+              - YEAR
+            hidden: false
